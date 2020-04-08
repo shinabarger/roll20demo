@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+        <link href="https://fonts.googleapis.com/css2?family=Girassol&display=swap" rel="stylesheet">
+
+        <script>
+            on("change:agility change:wit sheet:opened", function () {
+                getAttrs([
+                    "agility", "wit"
+                ], function (values) {
+                    // Reflex
+                    let ag = +values.agility || 0;
+                    let wt = +values.wit || 0;
+                    let total = ag + wt;
+                    setAttrs({reflex: total});
+                });
+            });
+
+            on("change:agility change:wit sheet:opened", function () {
+                getAttrs([
+                    "agility", "wit"
+                ], function (values) {
+                    // Action Points
+                    let ag = +values.agility || 0;
+                    let wt = +values.wit || 0;
+                    let total = 4 + ag + wt;
+                    setAttrs({actionpoints: total});
+                });
+            });
+
+            on("change:strength change:agility sheet:opened", function () {
+                getAttrs([
+                    "strength", "agility"
+                ], function (values) {
+                    // Knockdown
+                    let st = +values.strength || 0;
+                    let ag = +values.agility || 0;
+                    let total = st + ag;
+                    setAttrs({knockdown: total});
+                });
+            });
+
+            on("change:toughness change:willpower sheet:opened", function () {
+                getAttrs([
+                    "toughness", "willpower"
+                ], function (values) {
+                    // Knockout
+                    let tg = +values.toughness || 0;
+                    let wp = +values.willpower || 0;
+                    let total = tg + wp;
+                    setAttrs({knockout: total});
+                });
+            });
+
+            on("change:strength change:size sheet:opened", function () {
+                getAttrs([
+                    "strength", "size"
+                ], function (values) {
+                    // Power
+                    let st = +values.strength || 0;
+                    let sz = +values.size || 0;
+                    let total = st + sz;
+                    setAttrs({power: total});
+                });
+            });
+
+            on("change:toughness change:size sheet:opened", function () {
+                getAttrs([
+                    "toughness", "size"
+                ], function (values) {
+                    // Body
+                    let tg = +values.toughness || 0;
+                    let sz = +values.size || 0;
+                    let total = st + sz;
+                    setAttrs({body: total});
+                });
+            });
+
+            on("change:agility change:size sheet:opened", function () {
+                getAttrs([
+                    "agility", "size"
+                ], function (values) {
+                    // Move
+                    let ag = +values.agility || 0;
+                    let sz = +values.size || 0;
+                    let total = 5 + ag + sz;
+                    setAttrs({movement: total});
+                });
+            });
+
+            on("change:size sheet:opened", function () {
+                getAttrs(["size"], function (values) {
+                    // Ranged DC Still
+                    let sz = +values.size || 0;
+                    let total = 9 - sz;
+                    setAttrs({rangedcstill: total});
+                });
+            });
+
+            on("change:size sheet:opened", function () {
+                getAttrs(["size"], function (values) {
+                    // Ranged DC Moving
+                    let sz = +values.size || 0;
+                    let total = 12 - sz;
+                    setAttrs({rangedcmoving: total});
+                });
+            });
+
+            on("change:perception sheet:opened", function () {
+                getAttrs(["perception"], function (values) {
+                    // Passive Perception
+                    let pr = +values.perception || 0;
+                    let total = 7 + pr + pr;
+                    setAttrs({passiveperception: total});
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <!-- TABS HTML only -->
+
+        <!-- ATTRIBUTES -->
+        <div class="entiretable">
+            <table class="MsoNormalTable" width="240" align="left">
+
+                <tr>
+                    <th colspan="2" class="firstATRrow">Physical</th>
+                    <th colspan="2" class="firstATRrow">Mental</th>
+                    <th colspan="2" class="firstATRrow">Derived</th>
+                </tr>
+                <tr>
+                    <td class="ATRcolumn">ST</td>
+                    <td class="inputArea">
+                        <input type="number" name="attr_strength" placeholder="0" min="-5" max="5">
+                    </td>
+                    <td class="ATRcolumn">
+                        WP
+                    </td>
+                    <td class="inputArea">
+                        <p class="Standard" style="text-align: center;" align="center"><input type="number" name="attr_willpower" style="" placeholder="0" min="-5" max="5"></p>
+                    </td>
+                    <td class="ATRcolumnTotal" width="45">
+                        <p class="" style="text-align: center;" align="center">
+                            <span style="">AP</span>
+                        </p>
+                    </td>
+                    <td class="inputAreaTotal">
+                        <input type="text" name="attr_actionpoints" style=" font-weight: bold;" placeholder="4">
+                    </td>
+                </tr>
+                <tr >
+                    <td class="ATRcolumn">
+                        AG
+
+                    </td>
+                    <td class="inputArea">
+                        <input type="number" name="attr_agility" style=" font-weight: bold;" value="0" min="-5" max="5">
+                    </td>
+                    <td class="ATRcolumn" style="">
+                        WT
+
+                    </td>
+                    <td class="inputArea">
+                        <p class="Standard" style="text-align: center;" align="center"><input type="number" name="attr_wit" style=" font-weight: bold;" value="0" min="-5" max="5"></p>
+                    </td>
+                    <td class="ATRcolumnTotal">
+                        RF
+                    </td>
+                    <td class="inputAreaTotal">
+                        <input type="number" name="attr_reflex" value="0" min="-10" max="10">
+                    </td>
+                </tr>
+                <tr style="height: 12.8pt;">
+                    <td class="ATRcolumn">
+                        TG
+                    </p>
+                </td>
+                <td class="inputArea">
+                    <input type="number" name="attr_toughness" style=" font-weight: bold;" placeholder="0" min="-5" max="5">
+                </td>
+                <td class="ATRcolumn">
+                    <p class="Standard" style="text-align: center;" align="center">
+                        <span >PR</span>
+                    </p>
+                </td>
+                <td class="inputArea">
+                    <p class="Standard" style="text-align: center;" align="center"><input type="number" name="attr_perception" style=" font-weight: bold;" placeholder="0" min="-5" max="5"></p>
+                </td>
+                <td class="ATRcolumnTotal">
+                    KN
+                </td>
+                <td class="inputAreaTotal">
+                    <!--removed <p> tag from this input and other input fields to fix formatting -->
+                    <input type="number" name="attr_knockdown" style=" font-weight: bold;" placeholder="0" min="-5" max="5">
+                </td>
+            </tr>
+            <tr class="" style="">
+                <td class="ATRcolumn" style="">
+                    SZ
+                </td>
+                <td class="inputArea">
+                    <input type="number" name="attr_size" style=" font-weight: bold;" placeholder="0" min="-6">
+                </td>
+                <td style="" class="ATRcolumn">
+                    IN
+                </td>
+                <td class="inputArea">
+                    <input type="number" name="attr_intelligence" style=" font-weight: bold;" placeholder="0" min="-5" max="5">
+                </td>
+                <td class="ATRcolumnTotal">
+                    KO
+                </td>
+                <td class="inputAreaTotal">
+                    <input class="" type="number" name="attr_knockout" style=" font-weight: bold;" placeholder="0" min="-5" max="5">
+                </td>
+            </tr>
+
+            <tr class="tablefooter1">
+                <td class="ATRcolumnTotal ">
+                    PW
+                </td>
+                <td >
+                    <input type="number" name="attr_power" style=" font-weight: bold;" placeholder="0">
+                </td>
+                <td class="ATRcolumnTotal">
+                    BD
+                </td>
+                <td>
+                    <p class="Standard" style="text-align: center;" align="center"><input type="number" name="attr_body" style=" font-weight: bold;" placeholder="0"></p>
+                </td>
+                <td class="ATRcolumnTotal" id="move">
+                    Move
+                </td>
+                <td>
+                    <input type="text" name="attr_movement" style=" font-weight: bold;" placeholder="5">
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <!-- WEAPONs EQUIPPED TABLE -->
+    <div>
+        <table class="MsoNormalTable" style="border-collapse: collapse; border: none; margin-left: 7.5pt; margin-right: 7.5pt;" border="1" width="540" cellspacing="0" cellpadding="0" align="left">
+            <tbody>
+                <tr style="height: 12.8t;">
+                    <td style="width: 60.0pt; border: none; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="90">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <strong>
+                                <span style="font-size: 8.0pt;">Range DC</span>
+                            </strong>
+                        </p>
+                    </td>
+                    <td class="">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;"><input type="text" name="attr_rangedcstill" style="" placeholder="9"></span>
+                        </p>
+                    </td>
+                    <td style="width: 17.7pt; border: none; border-bottom: solid #BFBFBF 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="35">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;"><input type="text" name="attr_rangedcmoving" style="" placeholder="12"></span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border: none; background: black; padding: 0in .5pt 0in .5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="color: #ffffff; font-size: 8pt;">
+                                <strong>CP</strong>
+                            </span>
+                        </p>
+                    </td>
+                    <td style="width: 22.8pt; border-top: solid windowtext 1.0pt; border-left: none; border-bottom: none; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="46">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;">Skrm</span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border: solid #BFBFBF 1.0pt; border-left: none; background: #D9D9D9; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;">Cut</span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border: solid #BFBFBF 1.0pt; border-left: none; background: #D9D9D9; padding: 0in .5pt 0in .5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;">Thr</span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border: none; border-top: solid #BFBFBF 1.0pt; background: #D9D9D9; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;">Pry/</span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border: none; border-top: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;">AP</span>
+                        </p>
+                    </td>
+                    <td style="width: 27.0pt; border-top: solid #BFBFBF 1.0pt; border-left: none; border-bottom: none; border-right: solid #BFBFBF 1.0pt; background: #D9D9D9; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="54">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;">
+                                <strong>Dodge</strong>
+                            </span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border: solid #BFBFBF 1.0pt; border-left: none; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;"><input type=text id="Dodge" style=""></span>
+                        </p>
+                    </td>
+                    <td style="width: 3.15pt; border: none; border-right: solid #BFBFBF 1.0pt; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="6">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;">&nbsp;</span>
+                        </p>
+                    </td>
+                    <td style="width: 13.05pt; border: solid #BFBFBF 1.0pt; border-left: none; background: #D9D9D9; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="26">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <strong>
+                                <span style="font-size: 8.0pt;">PP</span>
+                            </strong>
+                        </p>
+                    </td>
+                    <td style="width: 15.3pt; border: solid #BFBFBF 1.0pt; border-left: none; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="31">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;"><input type=text name="attr_passiveperception" placeholder=7 style=""></span>
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height: 12.8pt;">
+                    <td style="width: 45.0pt; border: solid #BFBFBF 1.0pt; background: black; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="90">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="color: #ffffff; font-size: 8pt;">
+                                <strong>Weapon</strong>
+                            </span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: #D9D9D9; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 7.0pt;">Rng</span>
+                        </p>
+                    </td>
+                    <td style="width: 17.7pt; border: none; border-bottom: solid #BFBFBF 1.0pt; background: #D9D9D9; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="35">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 6.0pt;">Hand</span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border: none; background: black; padding: 0in .5pt 0in .5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="color: #ffffff; font-size: 8pt;">Total</span>
+                        </p>
+                    </td>
+                    <td style="width: 11.1pt; border-top: solid #BFBFBF 1.0pt; border-left: none; border-bottom: solid black 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="22">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;">A</span>
+                        </p>
+                    </td>
+                    <td style="width: 11.7pt; border-top: solid #BFBFBF 1.0pt; border-left: none; border-bottom: solid black 1.0pt; border-right: solid windowtext 1.0pt; background: #D9D9D9; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="23">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;">D</span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border: none; border-right: solid #BFBFBF 1.0pt; background: black; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8pt; color: #ffffff;">Dm</span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border: none; background: black; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8pt; color: #ffffff;">Dm</span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border: none; border-bottom: solid #BFBFBF 1.0pt; background: #D9D9D9; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 7.0pt;">Blck</span>
+                        </p>
+                    </td>
+                    <td style="width: .25in; border: none; border-bottom: solid #BFBFBF 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8.0pt;">Mod</span>
+                        </p>
+                    </td>
+                    <td style="width: 76.5pt; border-top: solid #BFBFBF 1.0pt; border-left: none; border-bottom: none; border-right: solid windowtext 1.0pt; background: black; padding: 0in .5pt 0in .5pt; height: 12.8pt;" colspan="5" width="153">
+                        <p class="Standard" style="text-align: center;" align="center">
+                            <span style="font-size: 8pt; color: #ffffff;">Other</span>
+                        </p>
+                    </td>
+
+                </table>
+
+                <!-- fieldset class here -->
+                <fieldset class="repeating_weapons">
+                    <table class="MsoNormalTable" style="border-collapse: collapse; border: none; margin-left: 7.5pt; margin-right: 7.5pt;" border="1" width="540" cellspacing="0" cellpadding="0" align="left">
+                        <tbody></tr>
+
+                        <tr style="height: 12.8pt;">
+                            <td style="width: 78.0pt; border: solid #BFBFBF 1.0pt; border-top: none; background: #F2F2F2; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="90"><input type=text name="attr_weapon" style=""></td>
+                            <td style="width: 23pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"><input type=text name="attr_range" style=""></td>
+                            <td style="width: 24pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid black 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="35"><input type=text name="attr_hand" style=""></td>
+                            <td style="width: 21pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid black 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;"><input type=text name="attr_cptotal" style=" font-weight: bold;"></td>
+                            <td style="width: 15pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #D9D9D9 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="22"><input type=text name="attr_skirmishattack" style=""></td>
+                            <td style="width: 15pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="23"><input type=text name="attr_skirmishdefense" style=""></td>
+                            <td style="width: 23.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"><input type=text name="attr_cutdamage" style=""></td>
+                            <td style="width: 24pt; border-top: solid #BFBFBF 1.0pt; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid black 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;">
+                                <input type=text name="attr_thrustdamage" style=""></td>
+                            <td style="width: 23pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"><input type=text name="attr_parryblock" style=""></td>
+                            <td style="width: 25pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid black 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;"><input type=text name="attr_weaponactionpointmodifier" style=""></td>
+                            <td style="width: 70pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid black 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" colspan="5" width="140"><input type=text name="attr_other" style=""></td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </fieldset>
+            <p></p>
+        </div>
+
+        <!-- ARMOR TABLE -->
+
+        <div>
+            <div class="WordSection1">
+                <table class="MsoNormalTable" style="border-collapse: collapse; border: none; margin-left: 7.5pt; margin-right: 7.5pt;" border="1" width="450" cellspacing="0" cellpadding="0" align="left">
+                    <tbody>
+                        <tr style="height: 12.8pt;">
+                            <td style="width: 100pt; border: solid #BFBFBF 1.0pt; background: black; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="90">
+                                <p class="Standard" style="margin-left: -3.7pt; text-align: center; text-indent: -2.65pt;" align="center">
+                                    <span style="color: #ffffff; font-size: 8pt;">
+                                        <strong>
+                                            Armor</strong>
+                                    </span>
+                                </p>
+                            </td>
+                            <td style="width: 137pt; border: solid #BFBFBF 1.0pt; border-left: none; background: #D9D9D9; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="99">
+                                <p class="Standard" style="text-align: center;" align="center">
+                                    <strong>
+                                        <span style="font-size: 8.0pt;">Location</span>
+                                    </strong>
+                                </p>
+                            </td>
+                            <td style="width: 22.7pt; border: solid #BFBFBF 1.0pt; border-left: none; background: black; padding: 0in .5pt 0in .5pt; height: 12.8pt;">
+                                <p class="Standard" style="text-align: center;" align="center">
+                                    <span style="color: #ffffff; font-size: 8pt;">
+                                        <strong>DR</strong>
+                                    </span>
+                                </p>
+                            </td>
+                            <td style="width: 20pt; border: solid #BFBFBF 1.0pt; border-left: none; background: #D9D9D9; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="31">
+                                <p class="Standard" style="text-align: center;" align="center">
+                                    <strong>
+                                        <span style="font-size: 8.0pt;">AV</span>
+                                    </strong>
+                                </p>
+                            </td>
+                            <td style="width: 20.7pt; border: solid #BFBFBF 1.0pt; border-left: none; background: black; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="41">
+                                <p class="Standard" style="text-align: center;" align="center">
+                                    <span style="font-size: 8pt; color: #ffffff;">BD</span>
+                                </p>
+                            </td>
+                            <td style="width: 22.5pt; border: solid #BFBFBF 1.0pt; border-left: none; background: #F2F2F2; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="45">
+                                <p class="Standard" style="text-align: center;" align="center">
+                                    <span style="font-size: 7.0pt;">APM</span>
+                                </p>
+                            </td>
+                            <td style="width: .25in; border: solid #BFBFBF 1.0pt; border-left: none; background: #F2F2F2; padding: 0in 1.5pt 0in 1.5pt; text-fit: 100%; height: 12.8pt;">
+                                <p class="Standard" style="text-align: center;" align="center">
+                                    <em>
+                                        <span style="font-size: 7.0pt;">Stealth</span>
+                                    </em>
+                                </p>
+                            </td>
+                            <td style="width: .5in; border: solid #BFBFBF 1.0pt; border-left: none; background: #F2F2F2; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="72">
+                                <p class="Standard" style="text-align: center;" align="center">
+                                    <em>
+                                        <span style="font-size: 8.0pt;">Other</span>
+                                    </em>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr style="height: 12.8pt;">
+                            <td style="width: 65pt; border-top: none; border-left: solid #BFBFBF 1.0pt; border-bottom: solid windowtext 1.0pt; border-right: solid #BFBFBF 1.0pt; background: #F2F2F2; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="90"><input type=text style=""></td>
+                            <td style="width: 90pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="99"><input type=text style=""></td>
+                            <td style="width: 16pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;"><input type=text style=" font-weight: bold;"></td>
+                            <td style="width: 16pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="31"><input type=text style=""></td>
+                            <td style="width: 15pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="41"><input type=text style=""></td>
+                            <td style="width: 17pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="45"><input type=text style=""></td>
+                            <td style="width: 21pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"><input type=text style=""></td>
+                            <td style="width: 26pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="72"><input type=number style=""></td>
+                        </tr>
+
+                    </table>
+                </tr>
+
+                <fieldset class="repeating_armor">
+                    <table class="MsoNormalTable" style="border-collapse: collapse; border: none; margin-left: 7.5pt; margin-right: 7.5pt;" border="1" width="450" cellspacing="0" cellpadding="0" align="left">
+                        <tbody></tr>
+                        <tr style="height: 12.8pt;">
+                            <td style="width: 65pt; border-top: none; border-left: solid #BFBFBF 1.0pt; border-bottom: solid windowtext 1.0pt; border-right: solid #BFBFBF 1.0pt; background: #F2F2F2; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="90"><input type=text name="attr_armor" style=""></td>
+                            <td style="width: 90pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="99"><input type=text name="attr_location" style=""></td>
+                            <td style="width: 16pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;"><input type=text name="attr_damagereduction" style=" font-weight: bold;"></td>
+                            <td style="width: 16pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="31"><input type=text name="attr_armorvalue" style=""></td>
+                            <td style="width: 15pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="41"><input type=text name="attr_body" style=""></td>
+                            <td style="width: 17pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="45"><input type=text name="attr_actionpointmodifier" style=""></td>
+                            <td style="width: 21pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"><input type=text name="attr_stealth" style=""></td>
+                            <td style="width: 26pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; border-right: solid #BFBFBF 1.0pt; background: white; padding: 0in .5pt 0in .5pt; height: 12.8pt;" width="72"><input type=text name="attr_other" style=""></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </fieldset>
+            <p></p>
+        </div>
+
+        <!-- Skills, Senses, & Abiliies -->
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <div class="skills firstATRrow">
+            <h2>Skills, Senses, & Abilities</h2>
+
+            <fieldset class="repeating_skills">
+                <input type="text" name="attr_skill" class="sheet-oneThird"/>
+                <input type="text" name="attr_attribute" class="sheet-half"/>
+
+            </fieldset>
+
+        </div>
+        <!-- Spells -->
+        <p>&nbsp;</p>
+        <div class="WordSection1">
+            <table
+                class="MsoNormalTable"
+                style="border-collapse: collapse; mso-table-layout-alt: fixed; border: none; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; mso-table-lspace: 9.0pt; margin-left: 7.5pt; mso-table-rspace: 9.0pt; margin-right: 7.5pt; mso-table-anchor-vertical: paragraph; mso-table-anchor-horizontal: margin; mso-table-left: left; mso-table-top: 11.25pt; mso-padding-alt: 0in .5pt 0in .5pt; mso-border-insideh: .5pt solid #BFBFBF; mso-border-insideh-themecolor: background1; mso-border-insideh-themeshade: 191; mso-border-insidev: .5pt solid #BFBFBF; mso-border-insidev-themecolor: background1; mso-border-insidev-themeshade: 191;"
+                border="1"
+                width="792"
+                cellspacing="0"
+                cellpadding="0"
+                align="left">
+                <tbody>
+                    <tr style="mso-yfti-irow: 0; mso-yfti-firstrow: yes; height: 12.8pt;">
+                        <td style="width: 62.75pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;" width="126">
+                            <p
+                                class="Standard"
+                                style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 11.25pt; mso-height-rule: exactly;"
+                                align="center">
+                                <span style="color: #ffffff; font-size: 8pt;">
+                                    <strong style="mso-bidi-font-weight: normal;">Spell &amp; Abilities</strong>
+                                </span>
+                            </p>
+                        </td>
+                        <td
+                            style="width: 19.75pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                            width="40">
+                            <p
+                                class="Standard"
+                                style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 11.25pt; mso-height-rule: exactly;"
+                                align="center">
+                                <span style="font-size: 8.0pt;">LVL</span>
+                            </p>
+                        </td>
+                        <td
+                            style="width: 20.75pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                            width="42">
+                            <p
+                                class="Standard"
+                                style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 11.25pt; mso-height-rule: exactly;"
+                                align="center">
+                                <span style="font-size: 8.0pt;">Skill</span>
+                            </p>
+                        </td>
+                        <td
+                            style="width: 27.0pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                            width="54">
+                            <p
+                                class="Standard"
+                                style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 11.25pt; mso-height-rule: exactly;"
+                                align="center">
+                                <span style="font-size: 8.0pt;">Dmg</span>
+                            </p>
+                        </td>
+                        <td
+                            style="width: .25in; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; mso-background-themecolor: text1; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;">
+                            <p
+                                class="Standard"
+                                style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 11.25pt; mso-height-rule: exactly;"
+                                align="center">
+                                <span style="font-size: 8pt; color: #ffffff;">Opp</span>
+                            </p>
+                        </td>
+                        <td
+                            style="width: 31.5pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; mso-background-themecolor: text1; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                            width="63">
+                            <p
+                                class="Standard"
+                                style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 11.25pt; mso-height-rule: exactly;"
+                                align="center">
+                                <span style="font-size: 8pt; color: #ffffff;">Duration</span>
+                            </p>
+                        </td>
+                        <td
+                            style="width: 31.5pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; mso-background-themecolor: text1; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                            width="63">
+                            <p
+                                class="Standard"
+                                style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 11.25pt; mso-height-rule: exactly;"
+                                align="center">
+                                <span style="font-size: 8pt; color: #ffffff;">Range</span>
+                            </p>
+                        </td>
+                        <td
+                            style="width: 27.0pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; mso-background-themecolor: text1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                            width="54">
+                            <p
+                                class="Standard"
+                                style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 11.25pt; mso-height-rule: exactly;"
+                                align="center">
+                                <span style="font-size: 8pt; color: #ffffff;">Area</span>
+                            </p>
+                        </td>
+                        <td
+                            style="width: 157.5pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; mso-background-themecolor: text1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                            width="315">
+                            <p
+                                class="Standard"
+                                style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 11.25pt; mso-height-rule: exactly;"
+                                align="center">
+                                <span style="color: #ffffff; font-size: 10pt;">
+                                    <strong style="mso-bidi-font-weight: normal;">Description</strong>
+                                </span>
+                            </p>
+                        </td>
+
+                    </table>
+                </tr>
+
+                <fieldset class="repeating_spells">
+
+                    <table
+                        class="MsoNormalTable"
+                        style="border-collapse: collapse; mso-table-layout-alt: fixed; border: none; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; mso-table-lspace: 9.0pt; margin-left: 7.5pt; mso-table-rspace: 9.0pt; margin-right: 7.5pt; mso-table-anchor-vertical: paragraph; mso-table-anchor-horizontal: margin; mso-table-left: left; mso-table-top: 11.25pt; mso-padding-alt: 0in .5pt 0in .5pt; mso-border-insideh: .5pt solid #BFBFBF; mso-border-insideh-themecolor: background1; mso-border-insideh-themeshade: 191; mso-border-insidev: .5pt solid #BFBFBF; mso-border-insidev-themecolor: background1; mso-border-insidev-themeshade: 191;"
+                        border="1"
+                        width="792"
+                        cellspacing="0"
+                        cellpadding="0"
+                        align="left">
+                        <tbody></tr>
+                        <tr style="mso-yfti-irow: 3; mso-yfti-lastrow: yes; height: 12.8pt;">
+                            <td
+                                style="width: 62.75pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-top: none; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #F2F2F2; mso-background-themecolor: background1; mso-background-themeshade: 242; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                                width="126"><input type=text name="attr_spellorability" style=""></td>
+                            <td
+                                style="width: 19.75pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                                width="40"><input type=text name="attr_spelllevel" style=""></td>
+                            <td
+                                style="width: 20.75pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                                width="42"><input type=text name="attr_spellskill" style=""></td>
+                            <td
+                                style="width: 27.0pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                                width="54"><input type=text name="attr_spelldamage" style=""></td>
+                            <td
+                                style="width: .25in; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"><input type=text name="attr_spellopposed" style=""></td>
+                            <td
+                                style="width: 31.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                                width="63"><input type=text name="attr_spellduration" style=""></td>
+                            <td
+                                style="width: 31.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                                width="63"><input type=text name="attr_spellrange" style=""></td>
+                            <td
+                                style="width: 27.0pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                width="54"><input type=text name="attr_spellarea" style=""></td>
+                            <td
+                                style="width: 157.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                width="315"><input type=text name="attr_spelldescription" style=""></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+
+            <!-- SKILL WITH SUMMARY TABLES -->
+
+            <div>
+                <p>&nbsp;</p>
+                <div class="WordSection1">
+                    <table
+                        class="MsoNormalTable"
+                        style="border-collapse: collapse; mso-table-layout-alt: fixed; border: none; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; mso-table-lspace: 9.0pt; margin-left: 7.5pt; mso-table-rspace: 9.0pt; margin-right: 7.5pt; mso-table-anchor-vertical: paragraph; mso-table-anchor-horizontal: margin; mso-table-left: left; mso-table-top: 7.65pt; mso-padding-alt: 0in .5pt 0in .5pt; mso-border-insideh: .5pt solid #BFBFBF; mso-border-insideh-themecolor: background1; mso-border-insideh-themeshade: 191; mso-border-insidev: .5pt solid #BFBFBF; mso-border-insidev-themecolor: background1; mso-border-insidev-themeshade: 191;"
+                        border="1"
+                        width="505"
+                        cellspacing="0"
+                        cellpadding="0"
+                        align="left">
+                        <tbody>
+                            <tr style="mso-yfti-irow: 0; mso-yfti-firstrow: yes; height: 12.8pt;">
+                                <td
+                                    style="width: 17.75pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in .5pt 0in .5pt; height: 12.8pt;">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 7.65pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 8.0pt;">Tier</span>
+                                        </strong>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: .25in; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in .5pt 0in .5pt; height: 12.8pt;">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 7.65pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 8.0pt;">Cost</span>
+                                        </strong>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 76.5pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                                    width="153">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 7.65pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <span style="color: #ffffff; font-size: 10pt;">
+                                            <strong style="mso-bidi-font-weight: normal;">Skills &amp; Abilities</strong>
+                                        </span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 16.05pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                    width="32">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 7.65pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <span style="font-size: 8.0pt;">S</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 14.85pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                    width="30">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 7.65pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <span style="font-size: 8.0pt;">P</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 14.85pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                    width="30">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 7.65pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <span style="font-size: 8.0pt;">E</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 13.5pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                    width="27">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 7.65pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <span style="font-size: 8.0pt;">C</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; mso-background-themecolor: text1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 7.65pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <span style="font-size: 8pt; color: #ffffff;">Grp</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: .25in; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in .5pt 0in .5pt; height: 12.8pt;">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 7.65pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <span style="font-size: 8.0pt;">ATR</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: .25in; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in .5pt 0in .5pt; height: 12.8pt;">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 7.65pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <span style="font-size: 8.0pt; color: black; mso-themecolor: text1;">Mod</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; mso-background-themecolor: text1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: margin; mso-element-top: 7.65pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <span style="font-size: 8.0pt; color: white; mso-themecolor: background1;">Total</span>
+                                    </p>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                        <fieldset class="repeating_skills">
+                            <table
+                                class="MsoNormalTable"
+                                style="border-collapse: collapse; mso-table-layout-alt: fixed; border: none; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; mso-table-lspace: 9.0pt; margin-left: 7.5pt; mso-table-rspace: 9.0pt; margin-right: 7.5pt; mso-table-anchor-vertical: paragraph; mso-table-anchor-horizontal: margin; mso-table-left: left; mso-table-top: 7.65pt; mso-padding-alt: 0in .5pt 0in .5pt; mso-border-insideh: .5pt solid #BFBFBF; mso-border-insideh-themecolor: background1; mso-border-insideh-themeshade: 191; mso-border-insidev: .5pt solid #BFBFBF; mso-border-insidev-themecolor: background1; mso-border-insidev-themeshade: 191;"
+                                border="1"
+                                width="505"
+                                cellspacing="0"
+                                cellpadding="0"
+                                align="left">
+
+                                <body>
+                                    <tr style="mso-yfti-irow: 2; height: 12.8pt;">
+                                        <td
+                                            style="width: 17.75pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-top: none; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"><input type=text name="attr_tier" style=""></td>
+                                        <td
+                                            style="width: .25in; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"><input type=text name="attr_cost" style=""></td>
+                                        <td
+                                            style="width: 76.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: #F2F2F2; mso-background-themecolor: background1; mso-background-themeshade: 242; padding: 0in 1.5pt 0in 1.5pt; height: 12.8pt;"
+                                            width="153"><input type=text name="attr_skillsandabilities" style=""></td>
+                                        <td
+                                            style="width: 16.05pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                            width="32"><input type=text name="attr_s" style=""></td>
+                                        <td
+                                            style="width: 14.85pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                            width="30"><input type=text name="attr_p" style=""></td>
+                                        <td
+                                            style="width: 14.85pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                            width="30"><input type=text name="attr_e" style=""></td>
+                                        <td
+                                            style="width: 13.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                            width="27"><input type=text name="attr_c" style=""></td>
+                                        <td
+                                            style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                            width="45"><input type=text name="attr_group" style=""></td>
+                                        <td
+                                            style="width: .25in; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"><input type=text name="attr_attribute" style=""></td>
+                                        <td
+                                            style="width: .25in; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.8pt;"><input type=text name="attr_attributemodifier" style=""></td>
+                                        <td
+                                            style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: #F2F2F2; mso-background-themecolor: background1; mso-background-themeshade: 242; padding: 0in .5pt 0in .5pt; height: 12.8pt;"
+                                            width="45"><input type=text name="attr_skilltotal" style=""></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </fieldset>
+                    </div>
+
+                    <!-- placeholder tables -->
+
+                    <!-- point summary table -->
+                    <table
+                        class="MsoNormalTable"
+                        style="border-collapse: collapse; mso-table-layout-alt: fixed; border: none; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; mso-table-lspace: 9.0pt; margin-left: 7.5pt; mso-table-rspace: 9.0pt; margin-right: 7.5pt; mso-table-anchor-vertical: paragraph; mso-table-anchor-horizontal: page; mso-table-left: 314.15pt; mso-table-top: 9.4pt; mso-padding-alt: 0in .5pt 0in .5pt; mso-border-insideh: .5pt solid #BFBFBF; mso-border-insideh-themecolor: background1; mso-border-insideh-themeshade: 191; mso-border-insidev: .5pt solid #BFBFBF; mso-border-insidev-themecolor: background1; mso-border-insidev-themeshade: 191;"
+                        border="1"
+                        width="279"
+                        cellspacing="0"
+                        cellpadding="0"
+                        align="left">
+                        <tbody>
+                            <tr style="mso-yfti-irow: 0; mso-yfti-firstrow: yes; height: 9pt;">
+                                <td style="width: 94.25pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; padding: 0in 1.5pt 0in 1.5pt; height: 11.25pt;" width="189">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: right; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="right">
+                                        <span style="color: #ffffff; font-size: 10pt;">
+                                            <strong style="mso-bidi-font-weight: normal;">Points Spent</strong>
+                                        </span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; padding: 0in .5pt 0in .5pt; height: 11.25pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <span style="color: #ffffff; font-size: 10pt;">Points</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-left: none; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: black; padding: 0in .5pt 0in .5pt; height: 11.25pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <span style="color: #ffffff; font-size: 10pt;">Mod</span>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr style="mso-yfti-irow: 1; height: 9pt;">
+                                <td
+                                    style="width: 94.25pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-top: none; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in 1.5pt 0in 1.5pt; height: 12.95pt;"
+                                    width="189">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: right; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="right">
+                                        <span style="font-size: 7.0pt;">Attributes</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr style="mso-yfti-irow: 2; height: 9pt;">
+                                <td
+                                    style="width: 94.25pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-top: none; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in 1.5pt 0in 1.5pt; height: 12.95pt;"
+                                    width="189">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: right; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="right">
+                                        <span style="font-size: 7.0pt;">Combat Points</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr style="mso-yfti-irow: 3; height: 9pt;">
+                                <td
+                                    style="width: 94.25pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-top: none; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in 1.5pt 0in 1.5pt; height: 12.95pt;"
+                                    width="189">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: right; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="right">
+                                        <span style="font-size: 7.0pt;">Specializations</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr style="mso-yfti-irow: 4; height: 9pt;">
+                                <td
+                                    style="width: 94.25pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-top: none; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in 1.5pt 0in 1.5pt; height: 12.95pt;"
+                                    width="189">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: right; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="right">
+                                        <span style="font-size: 7.0pt;">Other Skills</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr style="mso-yfti-irow: 5; height: 9pt;">
+                                <td
+                                    style="width: 94.25pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-top: none; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in 1.5pt 0in 1.5pt; height: 12.95pt;"
+                                    width="189">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: right; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="right">
+                                        <span style="font-size: 7.0pt;">Magic, Abilities, &amp; Powers</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr style="mso-yfti-irow: 6; height: 9pt;">
+                                <td
+                                    style="width: 94.25pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-top: none; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in 1.5pt 0in 1.5pt; height: 12.95pt;"
+                                    width="189">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: right; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="right">
+                                        <span style="font-size: 7.0pt;">Non-combat attributes</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr style="mso-yfti-irow: 7; height: 9pt;">
+                                <td
+                                    style="width: 94.25pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-top: none; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in 1.5pt 0in 1.5pt; height: 12.95pt;"
+                                    width="189">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: right; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="right">
+                                        <span style="font-size: 7.0pt;">Skill cost column total</span>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr style="mso-yfti-irow: 8; mso-yfti-lastrow: yes; height: 9pt;">
+                                <td
+                                    style="width: 94.25pt; border: solid #BFBFBF 1.0pt; mso-border-themecolor: background1; mso-border-themeshade: 191; border-top: none; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; background: #D9D9D9; mso-background-themecolor: background1; mso-background-themeshade: 217; padding: 0in 1.5pt 0in 1.5pt; height: 12.95pt;"
+                                    width="189">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: right; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="right">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 8.0pt;">TOTAL</span>
+                                        </strong>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                                <td
+                                    style="width: 22.5pt; border-top: none; border-left: none; border-bottom: solid #BFBFBF 1.0pt; mso-border-bottom-themecolor: background1; mso-border-bottom-themeshade: 191; border-right: solid #BFBFBF 1.0pt; mso-border-right-themecolor: background1; mso-border-right-themeshade: 191; mso-border-top-alt: solid #BFBFBF .5pt; mso-border-top-themecolor: background1; mso-border-top-themeshade: 191; mso-border-left-alt: solid #BFBFBF .5pt; mso-border-left-themecolor: background1; mso-border-left-themeshade: 191; mso-border-alt: solid #BFBFBF .5pt; mso-border-themecolor: background1; mso-border-themeshade: 191; background: white; mso-background-themecolor: background1; padding: 0in .5pt 0in .5pt; height: 12.95pt;"
+                                    width="45">
+                                    <p
+                                        class="Standard"
+                                        style="text-align: center; mso-element: frame; mso-element-frame-hspace: 9.0pt; mso-element-wrap: around; mso-element-anchor-vertical: paragraph; mso-element-anchor-horizontal: page; mso-element-left: 314.2pt; mso-element-top: 9.4pt; mso-height-rule: exactly;"
+                                        align="center">
+                                        <strong style="mso-bidi-font-weight: normal;">
+                                            <span style="font-size: 9.0pt;"><input type=text style=""></span>
+                                        </strong>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- sheet buttons other tabs -->
+                </body>
+            </html>
